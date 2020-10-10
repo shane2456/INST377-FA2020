@@ -49,8 +49,9 @@
         .then((response) => response.text())
         .then((response) => {
              console.log(response);
-             document.querySelector("body").style.backgroundColor = "#4EF26B";
-             document.querySelector("h1").innerHTML = "Lab 5 for Shane Vong";
+             document.querySelector('body').style.backgroundColor = "#4EF26B";
+             document.querySelector('h1').innerHTML = "Lab 5 for Shane Vong";
+             document.querySelector('.flex-outer').style.margin = "0px auto";
              const elements = document.querySelectorAll('.flex-inner li label')
              const fruitArray = ['orange', 'mango', 'blueberry']
              elements.forEach((el,i) => {
@@ -58,7 +59,15 @@
                  console.log(text);
                  el.innerText = fruitArray[i];
                 })
-        
+
+             const term = document.querySelectorAll('.checkbox-list-label')
+             term.forEach((el,i) => {
+                 const text = el.innerText;
+                 console.log(text);
+                 i.innerText = "Fruits";
+                })
+
+             
         })
    }
 </script>
