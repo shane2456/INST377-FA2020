@@ -4,6 +4,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import fetch from 'node-fetch';
+import { open } from 'sqlite';
+import sqlite3 from 'sqlite3';
 
 dotenv.config();
 
@@ -19,6 +21,35 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
+
+const dbSettings = {
+	filename: './tmp/database.db',
+	driver: sqlite3.Database
+	};
+
+
+  async function databaseInitialize(dbSettings) {
+    try {
+      const db = await open(dbSettings);
+      await db.exec(`CREATE TABLE IF NOT EXISTS restaurants (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        restaurant_name TEXT,
+        category TEXT)
+        `)
+  
+      const data = await dataFetch();
+  
+      const test = await db.get("SELECT * FROM restaurants")
+      console.log(test);
+  
+    }
+    catch(e) {
+      console.log("Error loading Database");
+      console.log(e);
+  
+    }
+  }
+  
 
 app.route('/api')
   .get(async (req, res) => {
